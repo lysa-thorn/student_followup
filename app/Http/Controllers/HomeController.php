@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('student.followup');
     }
     public function register(){
         return redirect('register');

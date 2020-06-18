@@ -75,8 +75,31 @@
                 </div>
             </div>
         </nav>
-    
+       
+        
         <main class="py-4">
+        @if(Auth::check())
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-md bg-light navbar-dark">
+        
+        
+                        <div class="collapse navbar-collapse mt-3" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-primary" href="{{ url('/home') }}">Follow Up</a>
+                            </li>
+                            <li class="nav-item text-primary">
+                                <a class="nav-link text-primary" href="#">Out Of Followup</a>
+                            </li>   
+                            </ul>
+                        </div>  
+                    </nav>
+                </div>
+            </div>
+        </div>
+        @endif
             @yield('content')
         </main>
     </div>
