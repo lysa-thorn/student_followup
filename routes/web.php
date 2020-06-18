@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('students', 'StudentController');
+Route::get('/returnOutFollowUpView', 'StudentController@returnOutFollowUpView')->name('returnOutFollowUpView');
 
 
 
