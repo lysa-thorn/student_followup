@@ -92,7 +92,7 @@
                                 <a class="nav-link text-primary" href="{{ url('/home') }}">Follow Up</a>
                             </li>
                             <li class="nav-item text-primary">
-                                <a class="nav-link text-primary" href="#">Out Of Followup</a>
+                                <a class="nav-link text-primary" href="{{route('returnOutFollowUpView')}}">Out Of Followup</a>
                             </li>   
                             </ul>
                         </div>  

@@ -16,6 +16,12 @@ class StudentController extends Controller
     {
         //
     }
+    public function returnOutFollowUpView(){
+        $users = User::all();
+        $students = Student::all();
+        return view('student.outFollowup', compact('students', 'users'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +46,7 @@ class StudentController extends Controller
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->class = $request->class;
-        
+
         $student->description = $request->description;
         $student->activeFolloup = 1;
         $student->user_id = $request->tutor;
