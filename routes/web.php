@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('students', 'StudentController');
 Route::get('/returnOutFollowUpView', 'StudentController@returnOutFollowUpView')->name('returnOutFollowUpView');
 Route::get('/outOfFollowup/{id}', 'StudentController@outOfFollowup')->name('outOfFollowup');
+Route::get('/backToFollowup/{id}', 'StudentController@backToFollowup')->name('backToFollowup');
 
 
 
