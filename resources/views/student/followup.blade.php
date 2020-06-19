@@ -23,7 +23,7 @@
                         <td>{{$student->class}}</td>
                         <td>
                             <a href=""><i class='fas fa-user-alt-slash text-success'></i></a>&nbsp; | &nbsp;
-                            <a href=""><i class='fas fa-user-edit'></i></a>
+                            <a href="{{route('students.edit', $student->id)}}"><i class='fas fa-user-edit'></i></a>
                         </td>
                         @endif
                         
