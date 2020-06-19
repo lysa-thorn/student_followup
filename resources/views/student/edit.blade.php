@@ -6,7 +6,8 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Add Student</h3>
+                        <h3>Edit Student</h3>
+                        <img class="mx-auto d-block" src="{{asset('img/'.$student->picture)}}" class="img-fluid rounded-circle">
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{route('students.update', $student->id)}}" enctype="multipart/form-data">
@@ -40,6 +41,14 @@
                                         <option <?php if($student->class=="SNA"){?>selected="selected"<?php } ?> value="SNA">SNA</option>
                                         <option <?php if($student->class=="Web Programming"){?>selected="selected"<?php } ?> value="Web Programming">Web Programming</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="picture" class="col-md-4 col-form-label text-md-right">{{ __('Picture') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="picture" type="file" class="form-control" name="image" autocomplete="picture">
                                 </div>
                             </div>
 

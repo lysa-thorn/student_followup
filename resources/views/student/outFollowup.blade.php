@@ -13,7 +13,7 @@
                     <th>Action</th>
                 </tr>
                 @foreach($students as $student)
-                    @if($student->activeFolloup == 0)
+                    @if($student->activeFollowup == 0)
                         
                     <tr>
                         <td><img class="mx-auto d-block" src="{{asset('img/'.$student->picture)}}" class="img-fluid rounded-circle"></td>

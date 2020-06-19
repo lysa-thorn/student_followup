@@ -16,6 +16,9 @@ class StudentController extends Controller
     {
         //
     }
+    /**
+     * Display out followup student view
+     */
     public function returnOutFollowUpView(){
         $users = User::all();
         $students = Student::all();
@@ -48,7 +51,7 @@ class StudentController extends Controller
         $student->class = $request->class;
 
         $student->description = $request->description;
-        $student->activeFolloup = 1;
+        $student->activeFollowup = 1;
         $student->user_id = $request->tutor;
         if ($request->hasfile('image')){
             $file = $request->file('image');
@@ -100,18 +103,27 @@ class StudentController extends Controller
         $student->class = $request->class;
         $student->description = $request->description;
         $student->user_id = $request->tutor;
-        $student->save();
+        if ($request->hasfile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time(). ".".$extension;
+            $file->move('img/', $filename);
+            $student->picture = $filename;
+            $student->save();
+        }
         return redirect('/home');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * out followup student
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function outOfFollowup($id)
     {
-        //
+        $student = Student::find($id);
+        $student->activeFollowup = 0;
+        $student->save();
+        return redirect('/home');
     }
 }
