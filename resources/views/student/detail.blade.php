@@ -18,6 +18,15 @@
                         @else
                         <p>Tutor By: No</p>
                         @endif
+
+                        <form action="{{route('addComment', $student->id)}}" method="post">
+                        @csrf
+                            <div class="form-group">
+                                <label for="comment">{{ __('Comment') }}</label>
+                                <textarea class="form-control" placeholder="Comment" name="comment" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </form>
                     </div>
                 </div>
             </div>
