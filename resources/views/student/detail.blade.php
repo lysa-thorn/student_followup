@@ -26,7 +26,13 @@
                                 <textarea class="form-control" placeholder="Comment" name="comment" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Post</button>
-                        </form>
+                        </form><br>
+                        @foreach($comments as $comment)
+                            <h5>{{$comment->user['firstName']}}</h5>
+                            <p>{{$comment->comment}}</p>
+                            <a href="{{route('comments.edit', $comment->id)}}">Edit</a>
+                            <hr>
+                        @endforeach
                     </div>
                 </div>
             </div>
