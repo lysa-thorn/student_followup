@@ -44,9 +44,11 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
-        //
+    
+        $comment = Comment::find($id);
+        return view('comment.edit', compact('comment'));
     }
 
     /**
@@ -56,9 +58,12 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+        $comment->comment = $request->comment;
+        $comment->save();
+        return redirect('students/'.$comment->student['id']);
     }
 
     /**
