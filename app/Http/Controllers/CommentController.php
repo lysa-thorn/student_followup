@@ -24,7 +24,7 @@ class CommentController extends Controller
         $comment->student_id = $student->id;
         $comment->user_id = auth::id();
         $comment->save();
-        return redirect('students/'.$student->id); 
+        return back(); 
     }
 
     /**
@@ -72,8 +72,10 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function deleteComment($id)
     {
-        //
+        $comment = Comment::find($id);
+        $comment->delete();
+        return back();
     }
 }
