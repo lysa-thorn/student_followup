@@ -23,6 +23,7 @@ Route::get('/returnOutFollowUpView', 'StudentController@returnOutFollowUpView')-
 Route::get('/outOfFollowup/{id}', 'StudentController@outOfFollowup')->name('outOfFollowup');
 Route::get('/backToFollowup/{id}', 'StudentController@backToFollowup')->name('backToFollowup');
 Route::post('/addComment/{id}', 'CommentController@addComment')->name('addComment');
+Route::get('/deleteComment/{id}', 'CommentController@deleteComment')->name('deleteComment');
 
 
 

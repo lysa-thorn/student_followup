@@ -30,7 +30,8 @@
                         @foreach($comments as $comment)
                             <h5>{{$comment->user['firstName']}}</h5>
                             <p>{{$comment->comment}}</p>
-                            <a href="{{route('comments.edit', $comment->id)}}">Edit</a>
+                            <a href="{{route('comments.edit', $comment->id)}}">Edit</a> |
+                            <a href="{{route('deleteComment', $comment->id)}}">Delete</a>
                             <hr>
                         @endforeach
                     </div>
