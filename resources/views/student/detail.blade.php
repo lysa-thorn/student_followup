@@ -28,10 +28,13 @@
                             <button type="submit" class="btn btn-primary">Post</button>
                         </form><br>
                         @foreach($comments as $comment)
-                            <h5>{{$comment->user['firstName']}}</h5>
+                            <h5>{{$comment->user['firstName']." ".$comment->user['lastName']}}</h5>
                             <p>{{$comment->comment}}</p>
-                            <a href="{{route('comments.edit', $comment->id)}}">Edit</a> |
-                            <a href="{{route('deleteComment', $comment->id)}}">Delete</a>
+
+                            @if(auth::id() == $comment->user_id)
+                                <a href="{{route('comments.edit', $comment->id)}}">Edit</a> |
+                                <a href="{{route('deleteComment', $comment->id)}}">Delete</a>
+                            @endif
                             <hr>
                         @endforeach
                     </div>
