@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container mt-3">
+ @if(auth::user()->role == 1)
     <a href="{{route('students.create')}}" class="btn btn-primary ">Add Student</a>
+ @endif
     <div class="row justify-content-center">
         <div class="col-md-12 mt-3">
             <table class="table table-bordered">
