@@ -111,8 +111,8 @@ class StudentController extends Controller
             $filename = time(). ".".$extension;
             $file->move('img/', $filename);
             $student->picture = $filename;
-            $student->save();
         }
+        $student->save();
         return redirect('/home');
     }
 
