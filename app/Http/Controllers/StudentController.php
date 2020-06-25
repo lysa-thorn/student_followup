@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Student;
+use Auth;
 class StudentController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +20,15 @@ class StudentController extends Controller
     {
         //
     }
+    /**
+     * Display out followup student view
+     */
+    public function returnOutFollowUpView(){
+        $users = User::all();
+        $students = Student::all();
+        return view('student.outFollowup', compact('students', 'users'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,6 +49,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         $student = new Student();
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
@@ -51,8 +65,30 @@ class StudentController extends Controller
             $file->move('img/', $filename);
             $student->picture = $filename;
             $student->save();
+=======
+        if(auth::user()->role == 1){
+            $student = new Student();
+            $student->firstName = $request->firstName;
+            $student->lastName = $request->lastName;
+            $student->class = $request->class;
+
+            $student->description = $request->description;
+            $student->activeFollowup = 1;
+            $student->user_id = $request->tutor;
+            if ($request->hasfile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time(). ".".$extension;
+                $file->move('img/', $filename);
+                $student->picture = $filename;
+                $student->save();
+            }
+            $result = redirect('/home');
+        }else {
+            $result = "Cannot add student";
+>>>>>>> 0124464ccaee9ff3dc305e5a40919c505a32e176
         }
-        return redirect('/home');
+        return $result;
     }
 
     /**
@@ -63,7 +99,9 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+        $comments = $student->comments;
+        return view('student.detail', compact('student', 'comments'));
     }
 
     /**
@@ -74,7 +112,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Student::find($id);
+        $users = User::all();
+        return view('student.edit', compact('student', 'users'));
     }
 
     /**
@@ -86,17 +126,50 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(auth::user()->role == 1){
+            $student = Student::find($id);
+            $student->firstName = $request->firstName;
+            $student->lastName = $request->lastName;
+            $student->class = $request->class;
+            $student->description = $request->description;
+            $student->user_id = $request->tutor;
+            if ($request->hasfile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time(). ".".$extension;
+                $file->move('img/', $filename);
+                $student->picture = $filename;
+            }
+            $student->save();
+            $result = redirect('/home');
+        }else {
+            $result = "Cannot edit student";
+        }
+        return $result;
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * out followup student
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function outOfFollowup($id)
     {
-        //
+        $student = Student::find($id);
+        $student->activeFollowup = 0;
+        $student->save();
+        return redirect('/returnOutFollowUpView');
+    }
+    public function backToFollowup($id)
+    {
+        if(auth::user()->role == 1){
+            $student = Student::find($id);
+            $student->activeFollowup = 1;
+            $student->save();
+            $result = redirect('/home');
+        }else{
+            $result = "Unauthorize user";
+        }
+        return $result;
     }
 }

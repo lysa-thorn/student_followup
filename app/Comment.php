@@ -4,16 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
-use App\Comment;
 
-
-class Student extends Model
+class Comment extends Model
 {
+    
     public function user(){
         return $this->belongsTo(User::class);
     }
-    
-    public function comments(){
-        return $this->hasMany(Comment::class);
+    public function student(){
+        return $this->belongsTo(User::class);
     }
 }

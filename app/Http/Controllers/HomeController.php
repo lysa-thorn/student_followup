@@ -24,7 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('student.followup');
+        $users = User::all();
+        $students = Student::all();
+        return view('student.followup', compact('students', 'users'));
+    
     }
     public function register(){
         return redirect('register');
