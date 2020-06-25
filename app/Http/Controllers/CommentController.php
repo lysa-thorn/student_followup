@@ -61,9 +61,13 @@ class CommentController extends Controller
     public function update(Request $request, $id)
     {
         $comment = Comment::find($id);
+        if(auth::id() == $comment->user_id){
         $comment->comment = $request->comment;
         $comment->save();
         return redirect('students/'.$comment->student['id']);
+        }else{
+            return "Unauthorize";
+        }
     }
 
     /**
@@ -75,7 +79,11 @@ class CommentController extends Controller
     public function deleteComment($id)
     {
         $comment = Comment::find($id);
+        if(auth::id() == $comment->user_id){
         $comment->delete();
         return back();
+        }else{
+            dd("dfk");
+        }
     }
 }
