@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Student;
+use Auth;
 class StudentController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,23 +49,28 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $student = new Student();
-        $student->firstName = $request->firstName;
-        $student->lastName = $request->lastName;
-        $student->class = $request->class;
+        if(auth::user()->role == 1){
+            $student = new Student();
+            $student->firstName = $request->firstName;
+            $student->lastName = $request->lastName;
+            $student->class = $request->class;
 
-        $student->description = $request->description;
-        $student->activeFollowup = 1;
-        $student->user_id = $request->tutor;
-        if ($request->hasfile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time(). ".".$extension;
-            $file->move('img/', $filename);
-            $student->picture = $filename;
-            $student->save();
+            $student->description = $request->description;
+            $student->activeFollowup = 1;
+            $student->user_id = $request->tutor;
+            if ($request->hasfile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time(). ".".$extension;
+                $file->move('img/', $filename);
+                $student->picture = $filename;
+                $student->save();
+            }
+            $result = redirect('/home');
+        }else {
+            $result = "Cannot add student";
         }
-        return redirect('/home');
+        return $result;
     }
 
     /**
@@ -99,21 +108,26 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::find($id);
-        $student->firstName = $request->firstName;
-        $student->lastName = $request->lastName;
-        $student->class = $request->class;
-        $student->description = $request->description;
-        $student->user_id = $request->tutor;
-        if ($request->hasfile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time(). ".".$extension;
-            $file->move('img/', $filename);
-            $student->picture = $filename;
+        if(auth::user()->role == 1){
+            $student = Student::find($id);
+            $student->firstName = $request->firstName;
+            $student->lastName = $request->lastName;
+            $student->class = $request->class;
+            $student->description = $request->description;
+            $student->user_id = $request->tutor;
+            if ($request->hasfile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time(). ".".$extension;
+                $file->move('img/', $filename);
+                $student->picture = $filename;
+            }
+            $student->save();
+            $result = redirect('/home');
+        }else {
+            $result = "Cannot edit student";
         }
-        $student->save();
-        return redirect('/home');
+        return $result;
     }
 
     /**
