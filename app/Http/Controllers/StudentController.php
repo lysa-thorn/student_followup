@@ -42,7 +42,7 @@ class StudentController extends Controller
         $student->class = $request->class;
         
         $student->description = $request->description;
-        $student->activeFolloup = 1;
+        $student->activeFollowup = 1;
         $student->user_id = $request->tutor;
         if ($request->hasfile('image')){
             $file = $request->file('image');
