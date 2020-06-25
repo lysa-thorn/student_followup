@@ -49,23 +49,6 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        $student = new Student();
-        $student->firstName = $request->firstName;
-        $student->lastName = $request->lastName;
-        $student->class = $request->class;
-        
-        $student->description = $request->description;
-        $student->activeFollowup = 1;
-        $student->user_id = $request->tutor;
-        if ($request->hasfile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time(). ".".$extension;
-            $file->move('img/', $filename);
-            $student->picture = $filename;
-            $student->save();
-=======
         if(auth::user()->role == 1){
             $student = new Student();
             $student->firstName = $request->firstName;
@@ -86,7 +69,6 @@ class StudentController extends Controller
             $result = redirect('/home');
         }else {
             $result = "Cannot add student";
->>>>>>> 0124464ccaee9ff3dc305e5a40919c505a32e176
         }
         return $result;
     }
