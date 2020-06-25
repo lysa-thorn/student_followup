@@ -62,12 +62,13 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
         if(auth::id() == $comment->user_id){
-        $comment->comment = $request->comment;
-        $comment->save();
-        return redirect('students/'.$comment->student['id']);
+            $comment->comment = $request->comment;
+            $comment->save();
+            $result = redirect('students/'.$comment->student['id']);
         }else{
-            return "Unauthorize";
+            $result = "Unauthorize";
         }
+        return $result;
     }
 
     /**
@@ -80,10 +81,11 @@ class CommentController extends Controller
     {
         $comment = Comment::find($id);
         if(auth::id() == $comment->user_id){
-        $comment->delete();
-        return back();
+            $comment->delete();
+            $result = back();
         }else{
-            dd("dfk");
+            $result = "Cannot delete";
         }
+        return $result;
     }
 }
