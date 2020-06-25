@@ -144,9 +144,14 @@ class StudentController extends Controller
     }
     public function backToFollowup($id)
     {
-        $student = Student::find($id);
-        $student->activeFollowup = 1;
-        $student->save();
-        return redirect('/home');
+        if(auth::user()->role == 1){
+            $student = Student::find($id);
+            $student->activeFollowup = 1;
+            $student->save();
+            $result = redirect('/home');
+        }else{
+            $result = "Unauthorize user";
+        }
+        return $result;
     }
 }
